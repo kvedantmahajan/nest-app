@@ -3,9 +3,22 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { CoffeesModule } from './coffees/coffees.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
-  imports: [CoffeesModule],
+  imports: [
+    CoffeesModule,
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'pass123',
+      database: 'postgres',
+      autoLoadEntities: true,
+      synchronize: true, // Syncs TypeORM entities with database. Disable in production, great for dev mode
+    }),
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
