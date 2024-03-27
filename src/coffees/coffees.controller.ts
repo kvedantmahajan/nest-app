@@ -13,6 +13,7 @@ import {
 import { CoffeesService } from './coffees.service';
 import { CreateCoffeeDto } from './dto/create-coffee.dto/create-coffee.dto';
 import { UpdateCoffeeDto } from './dto/update-coffee.dto/update-coffee.dto';
+import { PaginationQueryDto } from 'src/common/dto/pagination-query.dto/pagination-query.dto';
 
 @Controller('coffees')
 export class CoffeesController {
@@ -22,9 +23,8 @@ export class CoffeesController {
   // 1. you loose control over NestJs Response handlers which supports interceptors and decorators
   // 2. Also it can become platform dependant. Remember that Nest supports Fastify and others as well
   // 3. Harder to test as Response needs to be mocked as well
-  findAll(@Query() paginationQuery) {
-    // const { limit, offset } = paginationQuery;
-    return this.coffeeService.findAll();
+  findAll(@Query() paginationQuery: PaginationQueryDto) {
+    return this.coffeeService.findAll(paginationQuery);
   }
   @Get(':id')
   findOne(@Param('id') id: string) {
