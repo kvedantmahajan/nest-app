@@ -5,7 +5,7 @@ import {
   ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { FlavourEntity } from './flavour.entity/flavour.entity';
+import { FlavourEntity } from './flavour.entity';
 
 @Entity() // sql table = 'coffee' by default.
 //If we want a different  name, specifiy the name inside Entity function
@@ -18,6 +18,9 @@ export class Coffee {
 
   @Column()
   brand: string;
+
+  @Column({ default: 0 })
+  recommendations: number;
 
   // @Column('json', { nullable: true })
   @JoinTable()
